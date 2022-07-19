@@ -1,5 +1,5 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { delay, Subscription } from 'rxjs';
 import { Hospital } from 'src/app/models/hospital.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styles: [
   ]
 })
-export class HospitalesComponent implements OnInit {
+export class HospitalesComponent implements OnInit, OnDestroy {
 
   public hospitales: Hospital[] = [];
   public cargando: boolean = true;
@@ -22,10 +22,13 @@ export class HospitalesComponent implements OnInit {
   constructor(private hospitalService: HospitalService,
               private modalImagenService: ModalImagenService,
               private busquedasService: BusquedasService) { }
+  ngOnDestroy(): void {
+    this.imgSubs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.cargarHospitales();
-    this.imgSubs = this.modalImagenService.nuevaImagen
+    this.imgSubs = this.imgSubs = this.modalImagenService.nuevaImagen
     .pipe(
       delay(100)
     )
