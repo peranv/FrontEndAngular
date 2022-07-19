@@ -2,6 +2,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { delay, Subscription } from 'rxjs';
 import { Hospital } from 'src/app/models/hospital.model';
+import { BusquedasService } from 'src/app/services/busquedas.service';
 import { HospitalService } from 'src/app/services/hospital.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 import Swal from 'sweetalert2';
@@ -19,7 +20,8 @@ export class HospitalesComponent implements OnInit {
   public imgSubs: Subscription;
 
   constructor(private hospitalService: HospitalService,
-              private modalImagenService: ModalImagenService) { }
+              private modalImagenService: ModalImagenService,
+              private busquedasService: BusquedasService) { }
 
   ngOnInit(): void {
     this.cargarHospitales();
@@ -30,6 +32,16 @@ export class HospitalesComponent implements OnInit {
     .subscribe(img=> this.cargarHospitales())
   }
 
+  buscar( termino: string){
+    if(termino.length === 0){
+      return this.cargarHospitales();
+   }else{
+    return  this.busquedasService.buscar('hospitales', termino)
+    .subscribe( (resp: Hospital[])=> {
+      this.hospitales = resp;
+    } );
+   }
+   }
   cargarHospitales(){
     this.cargando = true;
     this.hospitalService.cargarHospitales()
@@ -60,7 +72,7 @@ export class HospitalesComponent implements OnInit {
 
 
   async abrirSweetAlert(){
-    const {value} = await Swal.fire<string>({
+    const {value=''} = await Swal.fire<string>({
       title: 'Crear Hospital',
       text: 'Ingrese el nombre del nuevo hospital',
       input: 'text',
