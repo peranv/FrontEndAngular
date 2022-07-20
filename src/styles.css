@@ -13,7 +13,9 @@
 .w100{
     width: 100px;
 }
-
+.w200{
+    width: 200px;
+}
 .avatar{
     border: 1px solid gray;
     border-radius: 100%;
