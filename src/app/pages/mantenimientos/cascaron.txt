@@ -67,3 +67,8 @@
 </div>
 <!-- column -->
 </div>
+
+SEND GIT
+git remote add origin https://github.com/peranv/FrontEndAngular.git
+git branch -M main
+git push -u origin main
