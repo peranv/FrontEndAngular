@@ -13,6 +13,7 @@ import { UsuariosComponent } from "./mantenimientos/usuarios/usuarios.component"
 import { HospitalesComponent } from "./mantenimientos/hospitales/hospitales.component";
 import { MedicosComponent } from "./mantenimientos/medicos/medicos.component";
 import { MedicoComponent } from "./mantenimientos/medicos/medico.component";
+import { BusquedaComponent } from "./busqueda/busqueda.component";
 
 const routes: Routes = [
 
@@ -28,6 +29,7 @@ const routes: Routes = [
           {path: 'rxjs', component: RxjsComponent, data: {titulo: 'Rxjs'}},
           {path: 'perfil', component: PerfilComponent, data: {titulo: 'Perfil de usuario'}},
           {path: 'account-settings', component: AccountSettingsComponent, data: {titulo: 'Account Settings'}},
+          {path: 'buscar/:termino', component: BusquedaComponent, data: {titulo: 'Busquedas'}},
           //mantenimientos
           {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Mantenimiento de Usuarios de aplicación'}},
           {path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Mantenimiento de hospitales'}},
