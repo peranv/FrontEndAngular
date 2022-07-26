@@ -22,7 +22,9 @@ export class UsuarioService {
                private router: Router) { }
 
   logout(){
+    //pendiente borrar menu
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
     this.router.navigateByUrl('/login');
   }
 
@@ -30,6 +32,9 @@ export class UsuarioService {
     return localStorage.getItem('token') || '';
   }
  
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.usuario.role;
+  }
   get uid(): string {
     return this.usuario.uid || '';
   }
@@ -67,7 +72,8 @@ export class UsuarioService {
     return this.http.post(`${base_url}/usuarios`, formData)
                     .pipe(
                           tap( (resp: any) =>{
-                               localStorage.setItem('token', resp.token)
+                               localStorage.setItem('token', resp.token);
+                               localStorage.setItem('menu', JSON.stringify(resp.menu));
                              })
                          );
   }
@@ -87,7 +93,8 @@ export class UsuarioService {
                .pipe(
                   tap( (resp: any) =>{
                     console.log(resp.token);
-                    localStorage.setItem('token', resp.token)
+                    localStorage.setItem('token', resp.token);
+                    localStorage.setItem('menu', JSON.stringify(resp.menu));
                   })
                );
   }
